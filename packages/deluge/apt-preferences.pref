@@ -1,0 +1,3 @@
+Package: deluge deluge-common deluge-console deluge-web deluge-gtk deluged
+Pin: release *
+Pin-Priority: -1

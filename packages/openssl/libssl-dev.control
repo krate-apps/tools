@@ -1,0 +1,16 @@
+Package: libssl-dev
+Version: @VERSION@
+Section: libdevel
+Installed-Size: @SIZE@
+Priority: optional
+Architecture: @ARCHITECTURE@
+Depends: libc6-dev | libc-dev, @LIBSSL_CORE@ (= @VERSION@)
+Conflicts: libssl1.0-dev
+Maintainer: @MAINTAINER@
+Description: Secure Sockets Layer toolkit - development files
+ This package contains the OpenSSL development libraries, header files and
+ documentation needed to compile and develop applications that use OpenSSL.
+ .
+ The OpenSSL toolkit provides support for secure communications between
+ machines. This package contains development libraries, header files and
+ manpages for libssl and libcrypto. 

@@ -1,0 +1,25 @@
+#!/bin/sh
+set -e
+case "$1" in
+    remove|deconfigure)
+        PKG_NAME="${DPKG_MAINTSCRIPT_PACKAGE:-rtorrent}"
+        PKG_VERSION="$(dpkg-query -W -f='${Version}' "${PKG_NAME}")"
+        BASE_VERSION="${PKG_VERSION%-*}"
+        INSTALL_BASE="/opt/Krate/vendor/${PKG_NAME}_${BASE_VERSION}"
+        INSTALL_USR="${INSTALL_BASE}/usr"
+        if [ -d "${INSTALL_USR}/include/torrent" ]; then
+            update-alternatives --remove torrent "${INSTALL_USR}/include/torrent" || true
+        fi
+        if [ -f "${INSTALL_USR}/lib/pkgconfig/libtorrent.pc" ]; then
+            update-alternatives --remove libtorrent.pc "${INSTALL_USR}/lib/pkgconfig/libtorrent.pc" || true
+        fi
+        rm -f "/etc/apt/preferences.d/${PKG_NAME}.pref"
+    ;;
+    upgrade|failed-upgrade|abort-install|abort-upgrade|disappear)
+    ;;
+    *)
+        echo "prerm called with an unknown argument \`$1\`" >&2
+        exit 1
+    ;;
+esac
+exit 0

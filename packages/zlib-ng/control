@@ -1,0 +1,21 @@
+Package: zlib-ng
+Version: @VERSION@-@REVISION@
+Section: libs
+Priority: optional
+Architecture: @ARCHITECTURE@
+Depends: libc6
+Maintainer: @MAINTAINER@
+Installed-Size: @SIZE@ 
+Description: zlib data compression library (optimized version)
+ zlib-ng is a zlib replacement with optimizations for "next generation" systems.
+ This package provides a drop-in replacement for the standard zlib library,
+ with better performance on modern systems.
+ .
+ This version is optimized for modern x86-64 processors and includes:
+  - SSE2/SSSE3/SSE42 optimizations
+  - AVX2 support
+  - Runtime CPU detection
+  - Optimized CRC32 calculations
+  - New compression strategies
+  .
+  Compiled on @DATE@

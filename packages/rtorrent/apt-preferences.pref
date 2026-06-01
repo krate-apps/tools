@@ -1,0 +1,3 @@
+Package: rtorrent libtorrent-dev libtorrent20 libtorrent21 libtorrent21t64
+Pin: release *
+Pin-Priority: -1

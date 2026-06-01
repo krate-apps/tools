@@ -1,0 +1,3 @@
+Package: transmission-daemon transmission-cli transmission-common transmission-remote-gtk transmission-qt transmission-gtk libtransmission-client-perl
+Pin: release *
+Pin-Priority: -1

@@ -1,0 +1,43 @@
+# Product metadata for Krate binary GitHub releases (see release_notes.py).
+# layout: standard = one row per .deb (1 release = 1 upstream version)
+# layout: multivariant = group by _lt_<libtorrent> in .deb names (qBittorrent, Deluge)
+
+rtorrent:
+  title: rTorrent
+  layout: standard
+  prerelease_contains: rc
+  license: |
+    rTorrent is distributed under the [GNU General Public License v2](https://www.gnu.org/licenses/old-licenses/gpl-2.0.html).
+
+transmission:
+  title: Transmission
+  layout: standard
+  prerelease_contains: beta
+  license: |
+    Transmission is distributed under the [GNU General Public License v3](https://www.gnu.org/licenses/gpl-3.0.html) or [MIT](https://opensource.org/licenses/MIT) (see upstream).
+
+boost:
+  title: Boost C++ Libraries
+  layout: standard
+  license: |
+    Boost is distributed under the [Boost Software License](https://www.boost.org/LICENSE_1_0.txt).
+
+rasterbar:
+  title: libtorrent-rasterbar
+  layout: standard
+  license: |
+    libtorrent-rasterbar is distributed under the [BSD License](https://github.com/arvidn/libtorrent/blob/master/LICENSE).
+
+qbittorrent:
+  title: qBittorrent
+  layout: multivariant
+  variant_label: libtorrent
+  license: |
+    qBittorrent is distributed under the [GNU General Public License v3.0](https://www.gnu.org/licenses/gpl-3.0.html) (GPL-3.0).
+
+deluge:
+  title: Deluge
+  layout: multivariant
+  variant_label: libtorrent
+  license: |
+    Deluge is distributed under the [GNU General Public License v3](https://www.gnu.org/licenses/gpl-3.0.html).

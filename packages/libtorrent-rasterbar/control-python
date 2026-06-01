@@ -1,0 +1,25 @@
+Package: @PACKAGE_NAME@
+Version: @VERSION@-@REVISION@
+Architecture: @ARCHITECTURE@
+Maintainer: @MAINTAINER@
+Installed-Size: @SIZE@
+Provides: python3-libtorrent
+Replaces: python3-libtorrent
+Section: python
+Priority: optional
+Multi-Arch: same
+Homepage: https://libtorrent.org/
+Description: Python bindings for libtorrent-rasterbar (Python 3)
+ Bittorrent library by Rasterbar Software (Arvid Norberg).
+ libtorrent-rasterbar is a C++ library that aims to be a good alternative to
+ all the other bittorrent implementations around.
+ .
+ The main goals of libtorrent-rasterbar are:
+  * to be cpu efficient
+  * to be memory efficient
+  * to be very easy to use
+ .
+ This package contains Python 3 bindings for the libtorrent-rasterbar library.
+ All files are installed in /usr/local/ for compatibility with custom builds.
+ .
+ Compiled on @DATE@

@@ -1,0 +1,17 @@
+Package: krate-boost
+Version: $FULL_VERSION
+Architecture: $ARCHITECTURE
+Maintainer: COMMITTER_NAME <COMMITTER_EMAIL>
+Installed-Size: ${INSTALLED_SIZE}
+Provides: libboost-all-dev
+Conflicts: libboost-all-dev, libboost-system-dev, libboost-filesystem-dev, libboost-thread-dev, libboost-program-options-dev, libboost-context-dev, libboost-coroutine-dev, libboost-iostreams-dev, libboost-random-dev, libboost-locale-dev
+Replaces: libboost-all-dev, libboost-system-dev, libboost-filesystem-dev, libboost-thread-dev, libboost-program-options-dev, libboost-context-dev, libboost-coroutine-dev, libboost-iostreams-dev, libboost-random-dev, libboost-locale-dev
+Priority: optional
+Section: net
+Description: Boost libraries (temporary installation for libtorrent-rasterbar builds)
+ The Boost web site provides free, peer-reviewed, portable C++ source libraries. 
+ The emphasis is on libraries which work well with the C++ Standard Library. 
+ One goal is to establish "existing practice" and provide reference implementations so that the Boost libraries are suitable for eventual standardization. 
+ Some of the libraries have already been proposed for inclusion in the C++ Standards Committee's upcoming C++ Standard Library Technical Report. 
+ .
+ Compiled on $(date +%Y-%m-%d)

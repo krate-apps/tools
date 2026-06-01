@@ -1,0 +1,17 @@
+Package: libudns-@DEB_LABEL@
+Version: @VERSION@
+Architecture: @ARCH@
+Section: libs
+Priority: optional
+Maintainer: @MAINTAINER@
+Depends: libc6 (>= 2.15)
+Homepage: https://www.corpit.ru/mjt/udns.html
+Description: DNS resolver library
+  udns is a stub DNS resolver library with ability to perform both
+  recursive and non-recursive DNS queries, and DNS dynamic update
+  (RFC2136) operations.
+  .
+  Version: ${{ matrix.version }}
+  @IPV6_SUPPORT@
+  .
+  Compiled on @DATE@.

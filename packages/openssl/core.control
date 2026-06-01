@@ -1,0 +1,13 @@
+Package: @LIBSSL_CORE@
+Version: @VERSION@
+Installed-Size: @SIZE@
+Section: libs
+Priority: optional
+Architecture: @ARCHITECTURE@
+Depends: libc6 (>= 2.17)
+Maintainer: @MAINTAINER@
+Description: Secure Sockets Layer toolkit - shared libraries
+ This package contains the OpenSSL shared libraries, libssl and libcrypto.
+ .
+ These libraries provide the cryptographic functionality required by various
+ programs and libraries that use the OpenSSL toolkit for SSL/TLS support. 

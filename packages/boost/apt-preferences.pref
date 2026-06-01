@@ -1,0 +1,3 @@
+Package: libboost-all-dev libboost-system-dev libboost-filesystem-dev libboost-thread-dev libboost-program-options-dev libboost-context-dev libboost-coroutine-dev libboost-iostreams-dev libboost-random-dev libboost-locale-dev
+Pin: release *
+Pin-Priority: -1

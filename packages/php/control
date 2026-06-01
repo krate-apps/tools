@@ -1,0 +1,22 @@
+Package: php-static
+Version: @VERSION@
+Architecture: @ARCHITECTURE@
+Maintainer: @MAINTAINER@
+Installed-Size: @SIZE@
+Depends: libc6
+Section: web
+Priority: optional
+Conflicts: @CONFLICTS@
+Provides: @PROVIDES@
+Homepage: https://github.com/php-builds
+Description: PHP static binary
+ PHP Static is a custom PHP distribution optimized for KRATE applications.
+ .
+ This package provides static PHP CLI and FPM binaries with essential extensions
+ and optimized configuration for KRATE applications.
+ .
+ Version: @VERSION@
+ .
+ Modules enabled: @MODULES@
+ .
+ Compiled on @DATE@.

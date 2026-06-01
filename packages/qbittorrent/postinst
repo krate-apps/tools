@@ -1,0 +1,21 @@
+#!/bin/sh
+set -e
+
+case "$1" in
+    configure)
+        PKG_NAME="${DPKG_MAINTSCRIPT_PACKAGE:-qbittorrent-nox}"
+        PREF_SRC="/usr/share/krate/apt-preferences/${PKG_NAME}.pref"
+        PREF_DST="/etc/apt/preferences.d/${PKG_NAME}.pref"
+        if [ -f "${PREF_SRC}" ]; then
+            mkdir -p /etc/apt/preferences.d
+            cp -f "${PREF_SRC}" "${PREF_DST}"
+            chmod 0644 "${PREF_DST}"
+        fi
+        ;;
+    abort-upgrade|abort-install|abort-remove)
+        ;;
+    *)
+        ;;
+esac
+
+exit 0

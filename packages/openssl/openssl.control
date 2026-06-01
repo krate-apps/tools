@@ -1,0 +1,13 @@
+Package: openssl
+Version: @VERSION@
+Installed-Size: @SIZE@
+Section: utils
+Priority: optional
+Architecture: @ARCHITECTURE@
+Depends: libc6 (>= 2.17), @LIBSSL_CORE@ (= @VERSION@)
+Maintainer: @MAINTAINER@
+Description: Secure Sockets Layer toolkit - cryptographic utility
+ This package contains the OpenSSL command-line tool and related utilities.
+ .
+ OpenSSL is a toolkit implementing SSL v2/v3 and TLS protocols with
+ full-strength cryptography world-wide. 

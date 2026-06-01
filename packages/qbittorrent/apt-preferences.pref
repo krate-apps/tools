@@ -1,0 +1,3 @@
+Package: qbittorrent qbittorrent-nox
+Pin: release *
+Pin-Priority: -1

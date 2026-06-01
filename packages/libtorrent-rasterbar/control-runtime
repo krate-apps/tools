@@ -1,0 +1,26 @@
+Package: @PACKAGE_NAME@
+Version: @VERSION@-@REVISION@
+Architecture: @ARCHITECTURE@
+Maintainer: @MAINTAINER@
+Installed-Size: @SIZE@
+Provides: libtorrent-rasterbar2.0, libtorrent-rasterbar
+Conflicts: libtorrent-rasterbar2.0
+Replaces: libtorrent-rasterbar, libtorrent-rasterbar2.0
+Section: libs
+Priority: optional
+Multi-Arch: same
+Homepage: https://libtorrent.org/
+Description: C++ bittorrent library by Rasterbar Software
+ Bittorrent library by Rasterbar Software (Arvid Norberg).
+ libtorrent-rasterbar is a C++ library that aims to be a good alternative to
+ all the other bittorrent implementations around.
+ .
+ The main goals of libtorrent-rasterbar are:
+  * to be cpu efficient
+  * to be memory efficient
+  * to be very easy to use
+ .
+ This package contains both the shared library and development files.
+ All files are installed in /usr/local/ for compatibility with custom builds.
+ .
+ Compiled on @DATE@

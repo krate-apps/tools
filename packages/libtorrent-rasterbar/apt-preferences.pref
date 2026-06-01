@@ -1,0 +1,3 @@
+Package: libtorrent-rasterbar libtorrent-rasterbar-dev python3-libtorrent
+Pin: release *
+Pin-Priority: -1

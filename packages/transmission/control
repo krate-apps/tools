@@ -1,0 +1,22 @@
+Package: transmission-daemon
+Version: ${TRANSMISSION_VERSION}-${BUILD}
+Architecture: ${ARCHITECTURE}
+Maintainer: COMMITTER_NAME <COMMITTER_EMAIL>
+Installed-Size: ${INSTALLED_SIZE}
+Depends: libssl3, libcurl4, libsystemd0, libminiupnpc17 | libminiupnpc10, libnatpmp1, libc6, zlib1g
+Provides: transmission-cli, transmission-common
+Conflicts: transmission-cli, transmission-common, transmission-remote-gtk, transmission-qt, transmission-gtk, libtransmission-client-perl
+Replaces: transmission-daemon, transmission-cli, transmission-common, transmission-remote-gtk, transmission-qt, transmission-gtk, libtransmission-client-perl
+Section: net
+Priority: optional
+Homepage: https://transmissionbt.com/
+Description: BitTorrent client (CLI tools, daemon mode)
+ Transmission BitTorrent client compiled statically for server usage.
+ Contains CLI tools and daemon with WebUI.
+ .
+ This package contains:
+  * CLI tools: transmission-cli, transmission-create, transmission-edit,
+    transmission-show, transmission-remote
+  * Daemon mode: transmission-daemon with WebUI
+ .
+ Compiled on $(date +%Y-%m-%d)

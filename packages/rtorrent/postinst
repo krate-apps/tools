@@ -1,0 +1,48 @@
+#!/bin/sh
+set -e
+case "$1" in
+    configure)
+        PKG_NAME="${DPKG_MAINTSCRIPT_PACKAGE}"
+        PKG_VERSION="$(dpkg-query -W -f='${Version}' "${PKG_NAME}")"
+        BASE_VERSION="${PKG_VERSION%-*}"
+        INSTALL_BASE="/opt/Krate/vendor/${PKG_NAME}_${BASE_VERSION}"
+        INSTALL_USR="${INSTALL_BASE}/usr"
+        ENV_FILE="${INSTALL_BASE}/.env"
+        PRIORITY=50
+        if [ -d "${INSTALL_USR}/include/torrent" ]; then
+            update-alternatives --install \
+                /usr/include/torrent torrent \
+                "${INSTALL_USR}/include/torrent" ${PRIORITY}
+        fi
+        if [ -f "${INSTALL_USR}/lib/pkgconfig/libtorrent.pc" ]; then
+            update-alternatives --install \
+                /usr/lib/x86_64-linux-gnu/pkgconfig/libtorrent.pc libtorrent.pc \
+                "${INSTALL_USR}/lib/pkgconfig/libtorrent.pc" ${PRIORITY}
+        fi
+        cat > "${ENV_FILE}" <<EOF2
+export CPATH="${INSTALL_BASE}/include:\$CPATH"
+export C_INCLUDE_PATH="${INSTALL_BASE}/include:\$C_INCLUDE_PATH"
+export CPLUS_INCLUDE_PATH="${INSTALL_BASE}/include:\$CPLUS_INCLUDE_PATH"
+export LIBRARY_PATH="${INSTALL_BASE}/lib:\$LIBRARY_PATH"
+export LD_LIBRARY_PATH="${INSTALL_BASE}/lib:\$LD_LIBRARY_PATH"
+export PKG_CONFIG_PATH="${INSTALL_BASE}/lib/pkgconfig:\$PKG_CONFIG_PATH"
+export PATH="${INSTALL_BASE}/bin:\$PATH"
+EOF2
+        PREF_SRC="/usr/share/krate/apt-preferences/${PKG_NAME}.pref"
+        PREF_DST="/etc/apt/preferences.d/${PKG_NAME}.pref"
+        if [ -f "${PREF_SRC}" ]; then
+            mkdir -p /etc/apt/preferences.d
+            cp -f "${PREF_SRC}" "${PREF_DST}"
+            chmod 0644 "${PREF_DST}"
+        fi
+        if command -v mandb >/dev/null 2>&1; then
+            mandb || true
+        fi
+    ;;
+    abort-upgrade|abort-install|abort-remove)
+    ;;
+    *)
+    ;;
+esac
+
+exit 0

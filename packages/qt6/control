@@ -1,0 +1,19 @@
+Package: qt6
+Version: @VERSION@-@REVISION@
+Section: libs
+Priority: optional
+Architecture: @ARCHITECTURE@
+Depends: zlib-ng, libdouble-conversion3, openssl, libssl3 | libssl1.1
+Conflicts: qt6-base, qt6-tools
+Replaces: qt6-base, qt6-tools
+Installed-Size: @SIZE@ 
+Maintainer: KRATE <contact@krate.org>
+Description: Qt6 libraries and tools
+ This package provides Qt6 libraries and tools, including:
+ .
+  * Qt6 Core libraries
+  * Qt6 Network libraries
+  * Qt6 Tools (qmake, uic, rcc, etc.)
+ .
+ Compiled on @DATE@
+Homepage: https://www.qt.io/

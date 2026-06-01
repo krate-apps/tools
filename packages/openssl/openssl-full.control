@@ -1,0 +1,16 @@
+Package: openssl
+Version: @VERSION@
+Installed-Size: @SIZE@
+Section: libs
+Priority: optional
+Architecture: @ARCHITECTURE@
+Depends: libc6 (>= 2.17)
+Maintainer: @MAINTAINER@
+Provides: @LIBSSL_CORE@, libssl-dev, openssl
+Replaces: @LIBSSL_CORE@, libssl-dev
+Description: OpenSSL - Secure Sockets Layer toolkit
+ OpenSSL is a toolkit implementing the Transport Layer Security (TLS)
+ and Secure Sockets Layer (SSL) protocols as well as a
+ full-strength general purpose cryptography library.
+ .
+ This package contains the OpenSSL library and command line tools. 

@@ -1,0 +1,17 @@
+#!/bin/sh
+set -e
+
+case "$1" in
+    remove|deconfigure)
+        PKG_NAME="${DPKG_MAINTSCRIPT_PACKAGE:-qbittorrent-nox}"
+        rm -f "/etc/apt/preferences.d/${PKG_NAME}.pref"
+        ;;
+    upgrade|failed-upgrade|abort-install|abort-upgrade|disappear)
+        ;;
+    *)
+        echo "prerm called with an unknown argument \`$1\`" >&2
+        exit 1
+        ;;
+esac
+
+exit 0
