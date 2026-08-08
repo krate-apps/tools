@@ -186,7 +186,7 @@ def main() -> int:
         "--private-key-file",
         type=Path,
         default=None,
-        help="PEM private key for signing; alternatively env BINARIES_CATALOG_SIGNING_PRIVATE_KEY (preferred) or CATALOG_SIGNING_PRIVATE_KEY",
+        help="PEM private key for signing; alternatively env KRATE_MANIFEST_KEY_BINARIES",
     )
     parser.add_argument(
         "--signing-key-id",
@@ -284,10 +284,7 @@ def main() -> int:
     if args.signing_key_id:
         catalog["signing_key_id"] = args.signing_key_id
 
-    signing_pem = (
-        (os.environ.get("BINARIES_CATALOG_SIGNING_PRIVATE_KEY") or "").strip()
-        or (os.environ.get("CATALOG_SIGNING_PRIVATE_KEY") or "").strip()
-    )
+    signing_pem = (os.environ.get("KRATE_MANIFEST_KEY_BINARIES") or "").strip()
     if args.private_key_file is not None:
         signing_pem = args.private_key_file.read_text(encoding="utf-8")
     if signing_pem:
