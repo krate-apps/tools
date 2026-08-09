@@ -1,6 +1,6 @@
 # Binary release notes (CI)
 
-Shared generator for GitHub release bodies in `krate-binaries/*-builds` repos.
+Shared generator for GitHub release bodies in `krate-apps/*-builds` repos.
 
 ## Table format
 
