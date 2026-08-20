@@ -20,10 +20,10 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 DEFAULT_RULES: list[dict[str, str]] = [
-    {"repo": "krate-binaries/deluge-builds", "family": "deluge", "deb_glob": "krate-deluge_*_amd64.deb"},
-    {"repo": "krate-binaries/qBittorrent-builds", "family": "qbittorrent-nox", "deb_glob": "krate-qbittorrent_*_amd64.deb"},
-    {"repo": "krate-binaries/rtorrent-builds", "family": "rtorrent", "deb_glob": "krate-rtorrent_*_amd64.deb"},
-    {"repo": "krate-binaries/transmission-builds", "family": "transmission-daemon", "deb_glob": "krate-transmission_*_amd64.deb"},
+    {"repo": "krate-apps/deluge-builds", "family": "deluge", "deb_glob": "krate-deluge_*_amd64.deb"},
+    {"repo": "krate-apps/qBittorrent-builds", "family": "qbittorrent-nox", "deb_glob": "krate-qbittorrent_*_amd64.deb"},
+    {"repo": "krate-apps/rtorrent-builds", "family": "rtorrent", "deb_glob": "krate-rtorrent_*_amd64.deb"},
+    {"repo": "krate-apps/transmission-builds", "family": "transmission-daemon", "deb_glob": "krate-transmission_*_amd64.deb"},
 ]
 
 
@@ -175,7 +175,7 @@ def main() -> int:
     parser.add_argument("--out", type=Path, default=Path("BINARIES_CATALOG.json"))
     parser.add_argument(
         "--snapshots-repo",
-        default=os.environ.get("SNAPSHOTS_REPO", "krate-binaries/snapshots"),
+        default=os.environ.get("SNAPSHOTS_REPO", "krate-apps/snapshots"),
         help="This repo (owner/name); used in deb_url",
     )
     parser.add_argument("--snapshot-tag", default=os.environ.get("SNAPSHOT_TAG", ""), help="Release tag on snapshots repo, e.g. snapshot-20260510")

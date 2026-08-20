@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
-# Install KRATE Boost .deb from github.com/krate-binaries/boost-builds Releases.
+# Install KRATE Boost .deb from github.com/krate-apps/boost-builds Releases.
 # Usage: install_boost_from_boost_builds.sh <version>
 # Example: install_boost_from_boost_builds.sh 1.91.0
-# Env: BOOST_BUILDS_REPO (default krate-binaries/boost-builds), GITHUB_TOKEN (optional, for API rate limits / private repos)
+# Env: BOOST_BUILDS_REPO (default krate-apps/boost-builds), GITHUB_TOKEN (optional, for API rate limits / private repos)
 set -euo pipefail
 
 VERSION="${1:?usage: $0 <boost_version e.g. 1.91.0>}"
-REPO="${BOOST_BUILDS_REPO:-krate-binaries/boost-builds}"
+REPO="${BOOST_BUILDS_REPO:-krate-apps/boost-builds}"
 FILENAME="libboost-all-dev_${VERSION}-1_amd64.deb"
 TAG="v${VERSION}"
 
