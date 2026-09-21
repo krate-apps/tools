@@ -8,7 +8,7 @@ Shared generator for GitHub release bodies in `krate-apps/*-builds` repos.
 | ------- | ------- | ---- |
 
 - **Package**: `.deb` filename (download asset name).
-- **Version**: upstream version; for `_lt_<libtorrent>` builds, shown as `5.2.0 (libtorrent 2.0.12)`.
+- **Version**: upstream version; for `_lt_<libtorrent>` builds, shown as `5.2.3 (libtorrent 2.0.14)`.
 - **Arch**: e.g. `amd64`.
 
 ## Layouts

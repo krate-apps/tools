@@ -35,8 +35,8 @@ DELUGE_VERSION="${INPUT_VERSION}"
 BUILD="1"
 CREATE_DEB="true"
 case "$DELUGE_VERSION" in
-    "2.1.1") LIBTORRENT_VERSION="${LIBTORRENT_VERSION:-2.0.11}"; GIT_REF="deluge-2.1.1" ;;
-    "2.2.0") LIBTORRENT_VERSION="${LIBTORRENT_VERSION:-2.0.11}"; GIT_REF="deluge-2.2.0" ;;
+    "2.1.1") LIBTORRENT_VERSION="${LIBTORRENT_VERSION:-2.0.14}"; GIT_REF="deluge-2.1.1" ;;
+    "2.2.0") LIBTORRENT_VERSION="${LIBTORRENT_VERSION:-2.0.14}"; GIT_REF="deluge-2.2.0" ;;
     *) echo "ERROR: Unsupported version: $DELUGE_VERSION"; exit 1 ;;
 esac
 BOOST_VERSION="${BOOST_VERSION:-1.91.0}"
@@ -57,7 +57,7 @@ mkdir -p "$INSTALL_DIR"
 ARCHITECTURE=$(dpkg --print-architecture)
 PYTHON_VERSION="3"
 PYTHON_CMD="python${PYTHON_VERSION}"
-# Keep LIBTORRENT_VERSION from env/matrix (e.g. 2.0.11). lt.version (e.g. 2.0.11.0) breaks INSTALL_PATH and .deb globs.
+# Keep LIBTORRENT_VERSION from env/matrix (e.g. 2.0.14). lt.version (e.g. 2.0.14.0) breaks INSTALL_PATH and .deb globs.
 
 # -----------------------------------------------------------------------------
 # 1) Download and build Deluge
