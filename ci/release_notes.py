@@ -5,7 +5,7 @@ Generate Krate binary release notes: packages table (Package | Version | Arch) a
 Usage (CI):
   python3 tools/ci/release_notes.py \\
     --product rtorrent \\
-    --version 0.16.11 \\
+    --version 0.16.23 \\
     --assets-dir release_assets \\
     --output-table "$GITHUB_OUTPUT" \\
     --output-body release_body.md

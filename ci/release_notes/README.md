@@ -24,7 +24,7 @@ After copying assets into `release_assets/`:
 pip3 install --upgrade pyyaml
 python3 tools/ci/release_notes.py \
   --product rtorrent \
-  --version "0.16.11" \
+  --version "0.16.23" \
   --assets-dir release_assets \
   --github-output
 ```
