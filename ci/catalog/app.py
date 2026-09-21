@@ -19,7 +19,7 @@ APPS = ROOT / "applications"
 OUT = APPS / "CATALOG.json"
 SCHEMA = ROOT / "ai" / "docs" / "ecommerce" / "schemas" / "catalog.schema.json"
 
-LINK_FALLBACK = "https://krate.github.io/docs/"
+LINK_FALLBACK = "https://runkrate.com/docs/"
 # Valid 64-hex placeholder until CI injects real bundle hashes
 PLACEHOLDER_SHA256 = "0" * 64
 LOCAL_LOGO_EXTS = (".png", ".webp", ".jpg", ".jpeg", ".gif", ".svg")
