@@ -106,6 +106,8 @@ def build_app(kind: str, app_dir: Path) -> dict:
     logo = local_logo_path(kind, app_dir, app_id)
 
     links = normalize_links(meta.get("links") if isinstance(meta.get("links"), dict) else {})
+    lane = "official" if kind == "official" else "community"
+    links["krate_docs"] = f"https://runkrate.com/docs/software/{lane}/{app_id}"
 
     entry: dict = {
         "id": app_id,
