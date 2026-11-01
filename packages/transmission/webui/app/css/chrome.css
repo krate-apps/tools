@@ -1,0 +1,513 @@
+/*
+ * Main-view chrome: toolbar contents, sidebar navigation (docked, rail and
+ * drawer), status bar chips and the bulk action bar. The shell regions are
+ * placed by `shell.css`; this file styles what the modules render into them.
+ * Breakpoints are container queries on the toolbar and sidebar regions
+ * (`shell.css` declares the containers) and viewport queries where the
+ * region has no container (status bar, bulk bar).
+ */
+
+/* ---- Toolbar --------------------------------------------------------- */
+
+.tb-brand {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	margin-right: 4px;
+	min-width: 0;
+}
+
+.tb-mark {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	flex: none;
+	width: 32px;
+	height: 32px;
+}
+
+.brand-mark {
+	display: block;
+	flex: none;
+}
+
+.tb-wordmark {
+	font-size: 14px;
+	font-weight: 500;
+	color: var(--kr-fg-muted);
+	white-space: nowrap;
+}
+
+.tb-add {
+	flex: none;
+}
+
+.tb-group {
+	flex: none;
+}
+
+.tb-spacer {
+	flex: 1 1 0;
+	min-width: 8px;
+}
+
+.tb-destructive:not(:disabled):hover {
+	color: var(--kr-destructive-text);
+}
+
+.tb-rates {
+	display: inline-flex;
+	align-items: center;
+	gap: 10px;
+	height: 36px;
+	padding: 0 10px;
+	border-radius: var(--kr-radius);
+	font-size: 12px;
+	font-variant-numeric: tabular-nums;
+	color: var(--kr-fg-muted);
+	background: var(--kr-pill-bg);
+	white-space: nowrap;
+}
+
+.tb-rate {
+	display: inline-flex;
+	align-items: center;
+	gap: 4px;
+}
+
+.tb-rate .icon {
+	color: var(--kr-icon);
+}
+
+.tb-alt-speed {
+	margin: 0 4px;
+}
+
+.tb-hamburger,
+.tb-search-toggle {
+	display: none;
+}
+
+/* ---- Search ---------------------------------------------------------- */
+
+.search {
+	position: relative;
+	display: inline-flex;
+	align-items: center;
+	flex: none;
+	width: 272px;
+	min-width: 0;
+}
+
+.search-icon {
+	position: absolute;
+	left: 10px;
+	display: inline-flex;
+	pointer-events: none;
+	color: var(--kr-icon);
+}
+
+.search-input {
+	width: 100%;
+	height: 36px;
+	padding-left: 34px;
+	padding-right: 86px;
+	text-overflow: ellipsis;
+}
+
+/* The clear button is hidden while the field is empty, so the placeholder
+   only has to clear the shortcut chip. 272px fits the longest
+   translated placeholder (about 170px in the widest fallback font). */
+.search-input:placeholder-shown {
+	padding-right: 62px;
+}
+
+.search-input::-webkit-search-cancel-button {
+	display: none;
+}
+
+.search-clear {
+	position: absolute;
+	right: 58px;
+}
+
+.search-kbd {
+	position: absolute;
+	right: 8px;
+	pointer-events: none;
+}
+
+.search-input:focus-visible ~ .search-kbd {
+	display: none;
+}
+
+.search-input:focus-visible ~ .search-clear {
+	right: 6px;
+}
+
+@container toolbar (max-width: 959px) {
+	.shell-toolbar .tb-secondary {
+		display: none;
+	}
+
+	.shell-toolbar .tb-hamburger {
+		display: inline-flex;
+	}
+
+	.shell-toolbar .search {
+		width: 224px;
+	}
+
+	.shell-toolbar .search-kbd {
+		display: none;
+	}
+
+	.shell-toolbar .search-input:placeholder-shown {
+		padding-right: 12px;
+	}
+}
+
+@container toolbar (max-width: 639px) {
+	.shell-toolbar .tb-wordmark,
+	.shell-toolbar .tb-add-label,
+	.shell-toolbar .tb-group:not(:has([data-action="remove"])),
+	.shell-toolbar .separator-v {
+		display: none;
+	}
+
+	.shell-toolbar .tb-add {
+		width: 44px;
+		height: 44px;
+		padding: 0;
+	}
+
+	.shell-toolbar .tb-search-toggle {
+		display: inline-flex;
+	}
+
+	.shell-toolbar .search {
+		display: none;
+	}
+
+	.shell-toolbar[data-search-open] .search {
+		display: inline-flex;
+		position: absolute;
+		inset: 8px 8px auto 8px;
+		z-index: 2;
+		width: auto;
+	}
+
+	.shell-toolbar[data-search-open] .search-kbd {
+		display: none;
+	}
+
+	.shell-toolbar[data-search-open] .search-input {
+		padding-right: 40px;
+	}
+
+	.shell-toolbar[data-search-open] .search-clear {
+		right: 6px;
+	}
+}
+
+/* ---- Sidebar --------------------------------------------------------- */
+
+.nav {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+	padding: 12px 8px;
+}
+
+.nav-heading {
+	margin: 0 0 4px;
+	padding: 0 10px;
+	font-size: 11px;
+	font-weight: 600;
+	letter-spacing: 0.04em;
+	text-transform: uppercase;
+	color: var(--kr-fg-muted);
+}
+
+.nav-list {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+}
+
+.nav-empty {
+	margin: 0;
+	padding: 4px 10px;
+	font-size: 12px;
+	color: var(--kr-fg-muted);
+}
+
+.nav-item {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	width: 100%;
+	height: 34px;
+	padding: 0 10px;
+	border: 0;
+	border-radius: var(--kr-radius);
+	font: inherit;
+	font-size: 13px;
+	text-align: start;
+	color: var(--kr-foreground);
+	background: transparent;
+	cursor: pointer;
+	transition: background-color 0.15s ease-out, color 0.15s ease-out;
+}
+
+.nav-item:hover {
+	background: var(--kr-muted);
+}
+
+.nav-item.is-active {
+	font-weight: 500;
+	color: var(--kr-primary-text);
+	background: color-mix(in srgb, var(--kr-primary) 12%, transparent);
+}
+
+.nav-item:focus-visible {
+	outline: 2px solid var(--kr-focus, var(--kr-primary));
+	outline-offset: -2px;
+}
+
+.nav-icon {
+	display: inline-flex;
+	flex: none;
+	color: var(--kr-icon);
+}
+
+.nav-item.is-active .nav-icon {
+	color: var(--kr-primary-text);
+}
+
+.nav-dot {
+	flex: none;
+	width: 8px;
+	height: 8px;
+	margin: 0 4px;
+	border-radius: 50%;
+	background: var(--kr-icon);
+}
+
+.nav-label {
+	flex: 1 1 auto;
+	min-width: 0;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+.nav-count {
+	flex: none;
+}
+
+.nav-foot {
+	display: flex;
+	justify-content: flex-end;
+	padding: 8px;
+	border-top: 1px solid var(--kr-border);
+}
+
+.shell[data-sidebar="rail"] .nav-heading,
+.shell[data-sidebar="rail"] .nav-label,
+.shell[data-sidebar="rail"] .nav-count,
+.shell[data-sidebar="rail"] .nav-empty,
+.shell[data-sidebar="rail"] .nav-section:not([data-section="status"]) {
+	display: none;
+}
+
+.shell[data-sidebar="rail"] .nav {
+	padding: 12px 10px;
+}
+
+.shell[data-sidebar="rail"] .nav-item {
+	justify-content: center;
+	width: 44px;
+	height: 40px;
+	padding: 0;
+}
+
+.shell[data-sidebar="rail"] .nav-foot {
+	justify-content: center;
+}
+
+@media (max-width: 959px) {
+	.nav-foot {
+		display: none;
+	}
+}
+
+/* ---- Status bar ------------------------------------------------------ */
+
+.chip {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	height: 22px;
+	padding: 0 8px;
+	border-radius: 6px;
+	white-space: nowrap;
+	color: var(--kr-fg-muted);
+	background: var(--kr-pill-bg);
+}
+
+/* When the bar is full the version and port chips give way (version first),
+   then the rates, so the connection state, free space and counts stay whole. */
+.chip {
+	flex: none;
+}
+
+.chip[data-chip="version"],
+.chip[data-chip="port"],
+.chip[data-chip="down"],
+.chip[data-chip="up"] {
+	min-width: 0;
+}
+
+.chip[data-chip="down"],
+.chip[data-chip="up"] {
+	flex: 0 1 auto;
+}
+
+.chip[data-chip="version"] {
+	flex: 0 16 auto;
+}
+
+.chip[data-chip="port"] {
+	flex: 0 4 auto;
+}
+
+.chip[data-chip="version"] .chip-value,
+.chip[data-chip="port"] .chip-value,
+.chip[data-chip="down"] .chip-value,
+.chip[data-chip="up"] .chip-value {
+	min-width: 0;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.chip .icon {
+	color: var(--kr-icon);
+}
+
+.chip-limit {
+	display: inline-flex;
+	align-items: center;
+	flex: none;
+}
+
+.chip-limit[hidden] {
+	display: none;
+}
+
+.chip[hidden],
+.search-clear[hidden] {
+	display: none;
+}
+
+.chip[data-chip="alt-speed"] {
+	color: var(--tr-st-checking);
+	background: color-mix(in srgb, var(--tr-st-checking) 14%, transparent);
+}
+
+.chip[data-chip="port"][data-open="true"] .icon {
+	color: var(--tr-st-seeding);
+}
+
+.chip[data-chip="port"][data-open="partial"] .icon {
+	color: var(--tr-st-checking);
+}
+
+.chip[data-chip="port"][data-open="false"] .icon {
+	color: var(--tr-st-error);
+}
+
+.chip-connection {
+	color: var(--tr-st-error);
+	background: color-mix(in srgb, var(--tr-st-error) 14%, transparent);
+}
+
+.chip-connection[data-state="connecting"] {
+	color: var(--kr-fg-muted);
+	background: var(--kr-pill-bg);
+}
+
+.chip-spacer {
+	flex: 1 1 0;
+}
+
+@media (max-width: 639px) {
+	.shell-statusbar {
+		gap: 8px;
+	}
+
+	.shell-statusbar .chip:not([data-essential]),
+	.shell-statusbar .chip-spacer {
+		display: none;
+	}
+
+	/* While the daemon is unreachable the message takes the whole row: the rate
+	   and free-space chips step aside and the text ellipsises instead of clipping. */
+	.shell-statusbar[data-connection]:not([data-connection="online"]) .chip:not(.chip-connection) {
+		display: none;
+	}
+
+	.shell-statusbar[data-connection]:not([data-connection="online"]) .chip-connection {
+		display: block;
+		flex: 1 1 auto;
+		min-width: 0;
+		max-width: 100%;
+		height: auto;
+		min-height: 22px;
+		line-height: 20px;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+
+	/* The bulk bar docks to the bottom edge; with a selection it must not cover the message. */
+	.shell[data-connection]:not([data-connection="online"]) .shell-bulkbar:not(:empty) {
+		bottom: var(--statusbar-h);
+	}
+}
+
+/* ---- Bulk bar -------------------------------------------------------- */
+
+.bulk-count {
+	font-size: 13px;
+	font-weight: 500;
+	color: var(--kr-foreground);
+	white-space: nowrap;
+}
+
+.bulk-spacer {
+	flex: 1 1 0;
+}
+
+.bulk-destructive:not(:disabled):hover {
+	color: var(--kr-destructive-text);
+}
+
+.shell-bulkbar .btn-icon {
+	width: 44px;
+	height: 44px;
+}
+
+.shell-bulkbar .bulk-clear {
+	width: 32px;
+	height: 32px;
+}
+
+@media (min-width: 640px) {
+	.shell-bulkbar {
+		display: none;
+	}
+}

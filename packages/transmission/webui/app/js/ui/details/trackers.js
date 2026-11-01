@@ -1,0 +1,311 @@
+/**
+ * Trackers tab: every tracker by tier, with its announce state, last result
+ * and peer counts. Counts the tracker did not report show as an em dash; a
+ * failed last announce shows the warning glyph and the tracker's message as
+ * text.
+ *
+ * Editing goes through `setTrackers`. Daemons that take a whole announce list
+ * (`caps.trackerList`) get one tiered text editor; older daemons get per-row
+ * Add, Edit (replace) and Remove, which `setTrackers` turns into
+ * `trackerAdd`, `trackerReplace` and `trackerRemove`.
+ *
+ * The torrent's `trackers` come with every poll, so the tab fetches nothing.
+ */
+
+import { formatTrackerList, parseTrackerList, setTrackers, tiersFromTrackers } from '../../rpc/trackers.js?v=2.0.0';
+import { refreshAfterWrite } from '../../rpc/poller.js?v=2.0.0';
+import { promptDialog } from '../dialogs/rename.js?v=2.0.0';
+import { errorMessage } from '../../core/errors.js?v=2.0.0';
+
+export const id = 'trackers';
+export const labelKey = 'details.tabs.trackers';
+export const live = false;
+export const fields = Object.freeze([]);
+
+const URL_RE = /^[a-z][a-z0-9+.-]*:\/\/\S+$/i;
+
+/** @param {string} line */
+export function isAnnounceUrl(line) {
+  return URL_RE.test(line);
+}
+
+/**
+ * The first line of `text` that is not an announce URL, or `null`.
+ * @param {string} text
+ */
+export function invalidLine(text) {
+  for (const tier of parseTrackerList(text)) for (const url of tier) if (!isAnnounceUrl(url)) return url;
+  return null;
+}
+
+/**
+ * Announce state of one tracker for display.
+ * @param {{ lastAnnounceSucceeded: boolean, lastAnnounceTime: number, lastAnnounceResult: string }} tracker
+ * @returns {'ok'|'warning'|'pending'}
+ */
+export function trackerHealth(tracker) {
+  if (tracker.lastAnnounceSucceeded) return 'ok';
+  if (tracker.lastAnnounceTime > 0) return 'warning';
+  return 'pending';
+}
+
+/**
+ * @param {import('../../main.js').AppContext} ctx
+ * @returns {import('./index.js').TabView}
+ */
+export function create(ctx) {
+  const { el, icon, tooltip, toast, openDialog, confirm } = ctx.ui;
+  const t = ctx.i18n;
+  const fmt = ctx.fmt;
+
+  let current = null;
+
+  const summary = el('p', { class: 'trackers-summary' });
+  const actions = el('div', { class: 'trackers-actions' });
+  const list = el('div', { class: 'trackers-list' });
+  const root = el('div', { class: 'trackers' }, [el('div', { class: 'trackers-bar' }, [summary, actions]), list]);
+
+  function count(n) {
+    return n == null || n < 0 ? '—' : fmt.count(n);
+  }
+
+  function listMode() {
+    return Boolean(ctx.caps && ctx.caps.trackerList);
+  }
+
+  /** Write the tiers; resolves after the success toast, rejects with a readable message. */
+  function save(tiers) {
+    const torrentId = current.id;
+    return Promise.resolve()
+      .then(() => setTrackers(ctx.rpc, ctx.caps, [torrentId], tiers))
+      .then(() => refreshAfterWrite(ctx, [torrentId]))
+      .then(() => { toast(t('details.trackers.saved'), { tone: 'success' }); }, (err) => {
+        throw new Error(t('details.trackers.saveFailed', { message: errorMessage(t, err) }));
+      });
+  }
+
+  /** The one-field dialog for an announce URL. */
+  function urlDialog({ title, value, onSave }) {
+    return promptDialog(ctx, {
+      title,
+      icon: 'tab-trackers',
+      label: t('details.trackers.url'),
+      value,
+      placeholder: t('details.trackers.urlPlaceholder'),
+      mono: true,
+      validate: (url) => (isAnnounceUrl(url) ? null : t('details.trackers.invalidUrl')),
+      onSave,
+    });
+  }
+
+  function editList() {
+    const text = formatTrackerList(tiersFromTrackers(current.trackers));
+    const area = el('textarea', {
+      class: 'textarea mono', id: `tracker-list-${current.id}`, rows: 10, spellcheck: 'false', value: text,
+      'aria-describedby': `tracker-list-help-${current.id}`,
+    });
+    const help = el('p', { class: 'field-help', id: `tracker-list-help-${current.id}`, text: t('details.trackers.listHelp') });
+    const error = el('p', { class: 'field-error', role: 'alert' });
+    const cancel = el('button', { type: 'button', class: 'btn btn-secondary', text: t('core.actions.cancel') });
+    const ok = el('button', { type: 'button', class: 'btn btn-primary', text: t('core.actions.save') });
+    const dialog = openDialog({
+      title: t('details.trackers.editTitle'),
+      description: current.name,
+      icon: 'tab-trackers',
+      size: 'lg',
+      body: el('div', { class: 'form-stack' }, [
+        el('label', { class: 'field-label', for: area.id, text: t('details.trackers.announceList') }),
+        area, help, error,
+      ]),
+      actions: [cancel, ok],
+      initialFocus: area,
+    });
+    cancel.addEventListener('click', () => dialog.close('cancel'));
+    ok.addEventListener('click', () => {
+      const bad = invalidLine(area.value);
+      if (bad) {
+        area.setAttribute('aria-invalid', 'true');
+        error.textContent = t('details.trackers.invalidLine', { line: bad });
+        return;
+      }
+      ok.disabled = true;
+      save(area.value).then(() => dialog.close('saved'), (err) => {
+        ok.disabled = false;
+        error.textContent = errorMessage(t, err);
+      });
+    });
+    return dialog;
+  }
+
+  function addTracker() {
+    return urlDialog({
+      title: t('details.trackers.addTitle'),
+      onSave: (url) => save([...tiersFromTrackers(current.trackers), [url]]),
+    });
+  }
+
+  function replaceTracker(tracker) {
+    return urlDialog({
+      title: t('details.trackers.editOne'),
+      value: tracker.announce,
+      onSave: (url) => save(tiersFromTrackers(current.trackers)
+        .map((tier) => tier.map((u) => (u === tracker.announce ? url : u)))),
+    });
+  }
+
+  function removeTracker(tracker) {
+    return confirm({
+      title: t('details.trackers.removeTitle'),
+      message: t('details.trackers.removeMessage', { host: tracker.host || tracker.announce }),
+      confirmLabel: t('details.trackers.remove'),
+      destructive: true,
+    }).then((yes) => {
+      if (!yes) return null;
+      const tiers = tiersFromTrackers(current.trackers)
+        .map((tier) => tier.filter((u) => u !== tracker.announce))
+        .filter((tier) => tier.length > 0);
+      return save(tiers).catch((err) => { toast(errorMessage(t, err), { tone: 'error' }); });
+    });
+  }
+
+  function rowButton(iconName, onClick) {
+    const button = el('button', { type: 'button', class: 'btn-icon btn-icon-xs', on: { click: onClick } }, [icon(iconName, { size: 14 })]);
+    tooltip(button, () => button.getAttribute('aria-label') || '');
+    return button;
+  }
+
+  function setText(node, text) {
+    if (node.textContent !== text) node.textContent = text;
+  }
+
+  function setAttr(node, name, value) {
+    if (node.getAttribute(name) !== value) node.setAttribute(name, value);
+  }
+
+  /*
+   * Rows, tier sections and the bar button are built once and patched on each
+   * poll, so a focused or half-pressed control is still the same node when the
+   * next announce result arrives.
+   */
+  const rowNodes = new Map();
+  const tierNodes = [];
+  const editButton = el('button', { type: 'button', class: 'btn btn-secondary', 'data-focus': 'bar', on: { click: () => editList() } }, [
+    icon('header-rename', { size: 16 }), t('details.trackers.edit')]);
+  const addButton = el('button', { type: 'button', class: 'btn btn-secondary', 'data-focus': 'bar', on: { click: () => addTracker() } }, [
+    icon('toolbar-add', { size: 16 }), t('details.trackers.add')]);
+
+  function buildRow(editable) {
+    const r = { tracker: null, health: null };
+    r.glyph = el('span', { class: 'tracker-glyph' });
+    r.host = el('p', { class: 'tracker-host' });
+    r.url = el('p', { class: 'tracker-url mono' });
+    r.last = el('p', { class: 'tracker-last' });
+    r.seeders = el('span');
+    r.leechers = el('span');
+    r.downloads = el('span');
+    r.next = el('span');
+    r.edit = editable ? rowButton('header-rename', () => replaceTracker(r.tracker)) : null;
+    r.remove = editable ? rowButton('toolbar-remove', () => removeTracker(r.tracker)) : null;
+    r.el = el('li', { class: 'tracker' }, [
+      r.glyph,
+      el('div', { class: 'tracker-main' }, [
+        r.host, r.url, r.last,
+        el('p', { class: 'tracker-counts tabular' }, [r.seeders, r.leechers, r.downloads, r.next]),
+      ]),
+      editable ? el('div', { class: 'tracker-actions' }, [r.edit, r.remove]) : null,
+    ]);
+    return r;
+  }
+
+  function updateRow(r, tracker) {
+    r.tracker = tracker;
+    const health = trackerHealth(tracker);
+    if (r.health !== health) {
+      if (r.health) r.el.classList.remove(`is-${r.health}`);
+      r.el.classList.add(`is-${health}`);
+      r.health = health;
+      const glyph = health === 'ok' ? 'menu-check' : health === 'warning' ? 'state-error' : 'state-queued';
+      r.glyph.replaceChildren(icon(glyph, { size: 16, label: t(`details.trackers.health.${health}`) }));
+    }
+    const host = tracker.host || tracker.announce;
+    const next = tracker.nextAnnounceTime > 0 ? tracker.nextAnnounceTime - Math.floor(Date.now() / 1000) : -1;
+    setText(r.host, host);
+    setText(r.url, tracker.announce);
+    setText(r.last, health === 'pending'
+      ? t('details.trackers.notAnnounced')
+      : t('details.trackers.lastAnnounce', {
+        when: fmt.date(tracker.lastAnnounceTime),
+        result: tracker.lastAnnounceResult || t(health === 'ok' ? 'details.trackers.success' : 'details.trackers.failed'),
+      }));
+    setText(r.seeders, t('details.trackers.seeders', { count: count(tracker.seederCount) }));
+    setText(r.leechers, t('details.trackers.leechers', { count: count(tracker.leecherCount) }));
+    setText(r.downloads, t('details.trackers.downloads', { count: count(tracker.downloadCount) }));
+    r.next.hidden = !(next > 0);
+    setText(r.next, next > 0 ? t('details.trackers.next', { in: fmt.eta(next) }) : '');
+    if (r.edit) {
+      setAttr(r.edit, 'aria-label', t('details.trackers.editOneFor', { host }));
+      setAttr(r.edit, 'data-focus', `edit ${tracker.announce}`);
+      setAttr(r.remove, 'aria-label', t('details.trackers.removeFor', { host }));
+      setAttr(r.remove, 'data-focus', `remove ${tracker.announce}`);
+    }
+    return r.el;
+  }
+
+  /** Put `nodes` under `parent` in order, moving nothing that is already in place. */
+  function placeChildren(parent, nodes) {
+    const current = parent.children ? [...parent.children] : [];
+    if (current.length === nodes.length && current.every((n, i) => n === nodes[i])) return;
+    const keep = new Set(nodes);
+    for (const n of current) if (!keep.has(n)) n.remove();
+    for (const n of nodes) parent.append(n);
+  }
+
+  return {
+    root,
+    render(torrent) {
+      if (current && current.id !== torrent.id) rowNodes.clear();
+      current = torrent;
+      const active = document.activeElement;
+      const focusKey = active && root.contains(active) ? active.getAttribute('data-focus') : null;
+      const trackers = Array.isArray(torrent.trackers) ? torrent.trackers : [];
+      const byTier = new Map();
+      for (const tr of trackers) {
+        if (!byTier.has(tr.tier)) byTier.set(tr.tier, []);
+        byTier.get(tr.tier).push(tr);
+      }
+      const tiers = [...byTier.keys()].sort((a, b) => a - b);
+      const editable = !listMode();
+      summary.textContent = trackers.length
+        ? t('details.trackers.countInTiers', {
+          trackers: t('details.trackers.count', { count: trackers.length, total: fmt.count(trackers.length) }),
+          tiers: t('details.trackers.tiers', { count: tiers.length, total: fmt.count(tiers.length) }),
+        })
+        : t('details.trackers.none');
+      placeChildren(actions, [listMode() ? editButton : addButton]);
+      const seen = new Set();
+      const sections = tiers.map((tier, i) => {
+        if (!tierNodes[i]) {
+          const heading = el('h3', { class: 'detail-label' });
+          const rowsList = el('ul', { class: 'tracker-rows' });
+          tierNodes[i] = { heading, rowsList, el: el('section', { class: 'tracker-tier' }, [heading, rowsList]) };
+        }
+        const section = tierNodes[i];
+        setText(section.heading, t('details.trackers.tier', { n: fmt.count(i + 1) }));
+        placeChildren(section.rowsList, byTier.get(tier).map((tr) => {
+          const key = `${editable ? 'e' : 'r'} ${tr.id}`;
+          seen.add(key);
+          if (!rowNodes.has(key)) rowNodes.set(key, buildRow(editable));
+          return updateRow(rowNodes.get(key), tr);
+        }));
+        return section.el;
+      });
+      for (const key of rowNodes.keys()) if (!seen.has(key)) rowNodes.delete(key);
+      tierNodes.length = tiers.length;
+      placeChildren(list, sections);
+      if (focusKey) {
+        const again = [...root.querySelectorAll('[data-focus]')].find((n) => n.getAttribute('data-focus') === focusKey);
+        if (again) again.focus();
+      }
+    },
+  };
+}

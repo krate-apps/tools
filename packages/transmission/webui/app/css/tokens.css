@@ -1,0 +1,142 @@
+/*
+ * Design tokens — Krate HarmonyUI (Dark / Light).
+ *
+ * CSS custom properties use `--kr-*` names across the app CSS.
+ * Variant selection is `data-kr-variant` on <html> (dark|light).
+ *
+ * `--tr-st-*` is the torrent status family. It never reuses `--kr-primary`,
+ * so two states shown side by side never share a hue.
+ */
+
+:root,
+:root[data-kr-variant="dark"] {
+	--kr-background: #171519;
+	--kr-foreground: #f5f5f5;
+	--kr-surface: #1c1a1f;
+	--kr-surface-2: #222027;
+	--kr-surface-3: #2a272e;
+	--kr-muted: #222027;
+	--kr-fg-muted: #a3a3a3;
+	--kr-border: #3f3f46;
+	--kr-border-soft: #2a2a30;
+	--kr-input: #141218;
+	--kr-primary: #0ea5e9;
+	--kr-primary-fg: #0b1220;
+	--kr-primary-text: #38bdf8;
+	--kr-primary-hover: color-mix(in srgb, var(--kr-primary) 88%, white);
+	--kr-accent: #38bdf8;
+	--kr-accent-fg: #0b1220;
+	--kr-accent-text: #7dd3fc;
+	--kr-destructive: #ef4444;
+	--kr-destructive-text: #f87171;
+	--kr-ring: #38bdf8;
+	--kr-focus: rgba(14, 165, 233, 0.35);
+	--kr-header-gradient: linear-gradient(to right, #0ea5e9, #0284c7);
+	--kr-scrollbar-track: #141218;
+	--kr-scrollbar-thumb: #0ea5e9;
+	--kr-scrollbar-thumb-hover: #38bdf8;
+	--kr-tooltip-bg: rgba(28, 26, 31, 0.96);
+	--kr-tooltip-fg: #f5f5f5;
+	--kr-tooltip-border: rgba(63, 63, 70, 0.55);
+	--kr-shadow: 0 16px 36px rgba(0, 0, 0, 0.4);
+	--kr-shadow-soft: 0 6px 16px rgba(0, 0, 0, 0.3);
+	--kr-speed-down: #38bdf8;
+	--kr-speed-up: #22c55e;
+	--kr-speed-total: #7dd3fc;
+	--kr-prg-start: #0284c7;
+	--kr-prg-end: #38bdf8;
+	--kr-pill-bg: rgba(0, 0, 0, 0.28);
+	--kr-icon: #a3a3a3;
+	--kr-icon-hover: #f5f5f5;
+	--kr-state-downloading: #38bdf8;
+	--kr-state-seeding: #22c55e;
+	--kr-state-paused: #fbbf24;
+	--kr-state-stopped: #a3a3a3;
+	--kr-state-error: #ef4444;
+	--kr-brand: #0ea5e9;
+	--kr-brand-deep: #0284c7;
+	--kr-brand-muted: #a3a3a3;
+	--kr-brand-muted-light: #d4d4d8;
+	--tr-st-stopped: #9ca3af;
+	--tr-st-queued: #a78bfa;
+	--tr-st-checking: #fbbf24;
+	--tr-st-downloading: #38bdf8;
+	--tr-st-seeding: #34d399;
+	--tr-st-finished: #a3e635;
+	--tr-st-error: #f87171;
+	color-scheme: dark;
+}
+
+:root[data-kr-variant="light"] {
+	--kr-background: #d8dee8;
+	--kr-foreground: #0f172a;
+	--kr-surface: #e8edf4;
+	--kr-surface-2: #dde3ec;
+	--kr-surface-3: #cfd6e0;
+	--kr-muted: #dde3ec;
+	--kr-fg-muted: #334155;
+	--kr-border: #94a3b8;
+	--kr-border-soft: #cbd5e1;
+	--kr-input: #f8fafc;
+	--kr-primary: #0284c7;
+	--kr-primary-fg: #ffffff;
+	--kr-primary-text: #0369a1;
+	--kr-primary-hover: color-mix(in srgb, var(--kr-primary) 88%, black);
+	--kr-accent: #0369a1;
+	--kr-accent-fg: #ffffff;
+	--kr-accent-text: #0c4a6e;
+	--kr-destructive: #b91c1c;
+	--kr-destructive-text: #991b1b;
+	--kr-ring: #0284c7;
+	--kr-focus: rgba(2, 132, 199, 0.32);
+	--kr-header-gradient: linear-gradient(to right, #0ea5e9, #0369a1);
+	--kr-scrollbar-track: #dde3ec;
+	--kr-scrollbar-thumb: #0284c7;
+	--kr-scrollbar-thumb-hover: #0369a1;
+	--kr-tooltip-bg: rgba(232, 237, 244, 0.98);
+	--kr-tooltip-fg: #0f172a;
+	--kr-tooltip-border: rgba(148, 163, 184, 0.7);
+	--kr-shadow: 0 16px 36px rgba(15, 23, 42, 0.12);
+	--kr-shadow-soft: 0 6px 16px rgba(15, 23, 42, 0.08);
+	--kr-speed-down: #0369a1;
+	--kr-speed-up: #15803d;
+	--kr-speed-total: #0c4a6e;
+	--kr-prg-start: #0369a1;
+	--kr-prg-end: #0ea5e9;
+	--kr-pill-bg: rgba(0, 0, 0, 0.06);
+	--kr-icon: #334155;
+	--kr-icon-hover: #0369a1;
+	--kr-state-downloading: #0284c7;
+	--kr-state-seeding: #15803d;
+	--kr-state-paused: #b45309;
+	--kr-state-stopped: #475569;
+	--kr-state-error: #b91c1c;
+	--kr-brand: #0284c7;
+	--kr-brand-deep: #0369a1;
+	--kr-brand-muted: #64748b;
+	--kr-brand-muted-light: #94a3b8;
+	--kr-switch-thumb: #ffffff;
+	--tr-st-stopped: #374151;
+	--tr-st-queued: #6d28d9;
+	--tr-st-checking: #92400e;
+	--tr-st-downloading: #0369a1;
+	--tr-st-seeding: #047857;
+	--tr-st-finished: #3f6212;
+	--tr-st-error: #b91c1c;
+	color-scheme: light;
+}
+
+/* Shared primitives. */
+:root {
+	--kr-font: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+	--kr-font-mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+	--kr-radius: 10px;
+	--kr-radius-lg: 14px;
+	--kr-radius-xl: 16px;
+	--kr-overlay: #000000;
+	--kr-destructive-fg: #ffffff;
+	--kr-destructive-solid: #dc2626;
+	--kr-destructive-solid-hover: #b91c1c;
+	--kr-switch-thumb: var(--kr-foreground);
+	accent-color: var(--kr-primary);
+}

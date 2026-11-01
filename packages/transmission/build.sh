@@ -27,7 +27,7 @@ INPUT_VERSION="$1"
 # 0) Global variables
 # -----------------------------------------------------------------------------
 TRANSMISSION_VERSION="${INPUT_VERSION}"
-BUILD="1"
+BUILD="4"
 FULL_VERSION="${TRANSMISSION_VERSION}-${BUILD}"
 CREATE_DEB="true"
 
@@ -104,7 +104,66 @@ build_transmission() {
     make -j"$CORES"
     echo "====> Installing Transmission to $INSTALL_DIR"
     make DESTDIR="$INSTALL_DIR" install
+    install_krate_webui
     cd "$WHEREAMI"
+}
+
+# -----------------------------------------------------------------------------
+# 1b) Install Krate TWC WebUI over the stock Transmission web root
+# -----------------------------------------------------------------------------
+install_krate_webui() {
+    echo "====> Installing Krate TWC WebUI"
+    local WEBUI_SRC PREFIX_ROOT WEB_ROOT candidate
+    WEBUI_SRC="$WHEREAMI/webui"
+    if [ ! -f "$WEBUI_SRC/index.html" ]; then
+        echo "ERROR: Krate WebUI missing at $WEBUI_SRC/index.html"
+        exit 1
+    fi
+    PREFIX_ROOT="$INSTALL_DIR$PREFIX"
+    WEB_ROOT=""
+    # Prefer the directory that already contains index.html after cmake install
+    for candidate in \
+        "$PREFIX_ROOT/share/transmission" \
+        "$PREFIX_ROOT/share/transmission/web" \
+        "$PREFIX_ROOT/share/transmission/public_html"
+    do
+        if [ -f "$candidate/index.html" ]; then
+            WEB_ROOT="$candidate"
+            break
+        fi
+    done
+    # Fallback: first existing candidate, else create preferred share/transmission
+    if [ -z "$WEB_ROOT" ]; then
+        for candidate in \
+            "$PREFIX_ROOT/share/transmission" \
+            "$PREFIX_ROOT/share/transmission/web" \
+            "$PREFIX_ROOT/share/transmission/public_html"
+        do
+            if [ -d "$candidate" ]; then
+                WEB_ROOT="$candidate"
+                break
+            fi
+        done
+    fi
+    if [ -z "$WEB_ROOT" ]; then
+        WEB_ROOT="$PREFIX_ROOT/share/transmission"
+        mkdir -p "$WEB_ROOT"
+    fi
+    if [ -f "$WEB_ROOT/index.html" ] && [ ! -f "$WEB_ROOT/index.original.html" ]; then
+        mv "$WEB_ROOT/index.html" "$WEB_ROOT/index.original.html"
+        echo "====> Preserved stock WebUI as $WEB_ROOT/index.original.html"
+    fi
+    # Prefer portable cp over rsync (CI container may not ship rsync).
+    cp -a "$WEBUI_SRC"/. "$WEB_ROOT"/
+    # Attribution / license files must not be HTTP-served from WEB_ROOT.
+    rm -f "$WEB_ROOT/.twc-upstream-version" \
+      "$WEB_ROOT/KRATE-ORIGIN.txt" \
+      "$WEB_ROOT/LICENSE" \
+      "$WEB_ROOT/app/NOTICE"
+    mkdir -p "$PREFIX_ROOT/share/doc/transmission-daemon"
+    cp -a "$WEBUI_SRC/LICENSE" "$PREFIX_ROOT/share/doc/transmission-daemon/webui-LICENSE"
+    cp -a "$WEBUI_SRC/KRATE-ORIGIN.txt" "$PREFIX_ROOT/share/doc/transmission-daemon/webui-ORIGIN.txt"
+    echo "====> Installed Krate TWC WebUI into $WEB_ROOT"
 }
 
 # -----------------------------------------------------------------------------

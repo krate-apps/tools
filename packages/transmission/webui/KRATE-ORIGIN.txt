@@ -1,0 +1,3 @@
+Vendored from transmission-web-control v2.0.0 (MIT).
+Adapted for Krate HarmonyUI (Dark / Light / Auto).
+Based on Transmission Web Control by ronggang.

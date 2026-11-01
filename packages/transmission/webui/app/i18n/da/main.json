@@ -1,0 +1,148 @@
+{
+  "columns": {
+    "name": "Navn",
+    "status": "Status",
+    "percentDone": "Fremdrift",
+    "totalSize": "Størrelse",
+    "rateDownload": "Ned",
+    "rateUpload": "Op",
+    "eta": "ETA",
+    "uploadRatio": "Ratio",
+    "seederCount": "Seedere",
+    "leecherCount": "Leechere",
+    "uploadedEver": "Uploadet",
+    "addedDate": "Tilføjet",
+    "doneDate": "Gennemført",
+    "activityDate": "Sidst aktiv",
+    "queuePosition": "Kø",
+    "downloadDir": "Placering",
+    "labels": "Etiketter",
+    "trackers": "Trackers",
+    "id": "ID"
+  },
+  "table": {
+    "selectAll": "Markér alle torrents på listen",
+    "selectRow": "Markér {name}",
+    "sortAscending": "Sortér efter {column}, stigende",
+    "sortDescending": "Sortér efter {column}, faldende",
+    "trackerWarning": "Tracker-advarsel",
+    "noTorrents": "Ingen torrents endnu. Tilføj en med knappen ovenfor, eller slip en fil et vilkårligt sted.",
+    "noMatches": "Ingen torrents matcher det aktuelle filter."
+  },
+  "actions": {
+    "menu": "Filtre",
+    "add": "Tilføj torrent",
+    "start": "Start",
+    "pause": "Sæt på pause",
+    "verify": "Kontrollér lokale data",
+    "reannounce": "Bed trackeren om flere peers",
+    "forceStart": "Gennemtving start",
+    "remove": "Fjern",
+    "move": "Angiv placering",
+    "limits": "Hastighedsgrænser",
+    "labels": "Etiketter",
+    "queue": "Kø",
+    "queueTop": "Flyt til toppen",
+    "queueUp": "Flyt op",
+    "queueDown": "Flyt ned",
+    "queueBottom": "Flyt til bunden",
+    "settings": "Indstillinger",
+    "about": "Om",
+    "replaceTrackers": "Erstat trackers",
+    "findData": "Find data",
+    "rename": "Omdøb"
+  },
+  "search": {
+    "placeholder": "Søg i torrents",
+    "clear": "Ryd søgning",
+    "open": "Søg"
+  },
+  "toolbar": {
+    "transferGroup": "Overførsel",
+    "manageGroup": "Administrer",
+    "rates": "Download {down}, upload {up}",
+    "altSpeed": "Midlertidige hastighedsgrænser",
+    "collapse": "Skjul sidepanelet",
+    "expand": "Vis sidepanelet"
+  },
+  "sidebar": {
+    "status": "Status",
+    "labels": "Etiketter",
+    "trackers": "Trackers",
+    "folders": "Mapper",
+    "all": "Alle",
+    "active": "Aktive",
+    "stopped": "På pause",
+    "warning": "Advarsel",
+    "noLabels": "Ingen etiketter endnu",
+    "noTrackers": "Ingen trackers",
+    "noFolders": "Ingen mapper"
+  },
+  "statusbar": {
+    "down": "Downloadhastighed",
+    "up": "Uploadhastighed",
+    "limit": "{rate} af {limit}",
+    "altSpeed": "Midlertidige hastighedsgrænser",
+    "altSpeedOn": "Grænser aktive",
+    "free": "Ledig plads i downloadmappen",
+    "freeValue": "{free} ledig",
+    "freeChecking": "Kontrollerer ledig plads",
+    "port": "Peer-port",
+    "portLine": "Port {port}: {states}",
+    "portProtocol": "{protocol} {state}",
+    "portStateOpen": "åben",
+    "portStateClosed": "lukket",
+    "portStateUnknown": "ukendt",
+    "portStateUnavailable": "utilgængelig",
+    "portStateChecking": "kontrollerer",
+    "version": "Transmission {version}",
+    "versionTip": "Versioner af Transmission og RPC",
+    "countsOf": "{shown} af {total}",
+    "rpc": "RPC {rpc}",
+    "rpcSemver": "RPC semver {semver}"
+  },
+  "bulkbar": {
+    "clear": "Ryd markering"
+  },
+  "feedback": {
+    "actionFailed": "{action} mislykkedes: {message}",
+    "done": {
+      "start": {
+        "one": "{total} torrent startet",
+        "other": "{total} torrents startet"
+      },
+      "pause": {
+        "one": "{total} torrent sat på pause",
+        "other": "{total} torrents sat på pause"
+      },
+      "verify": {
+        "one": "Kontrollerer {total} torrent",
+        "other": "Kontrollerer {total} torrents"
+      },
+      "reannounce": {
+        "one": "Spurgte trackerne om {total} torrent",
+        "other": "Spurgte trackerne om {total} torrents"
+      },
+      "forceStart": {
+        "one": "Gennemtvang start af {total} torrent",
+        "other": "Gennemtvang start af {total} torrents"
+      },
+      "queueTop": {
+        "one": "Flyttede {total} torrent til toppen af køen",
+        "other": "Flyttede {total} torrents til toppen af køen"
+      },
+      "queueUp": {
+        "one": "Flyttede {total} torrent op i køen",
+        "other": "Flyttede {total} torrents op i køen"
+      },
+      "queueDown": {
+        "one": "Flyttede {total} torrent ned i køen",
+        "other": "Flyttede {total} torrents ned i køen"
+      },
+      "queueBottom": {
+        "one": "Flyttede {total} torrent til bunden af køen",
+        "other": "Flyttede {total} torrents til bunden af køen"
+      }
+    }
+  }
+}

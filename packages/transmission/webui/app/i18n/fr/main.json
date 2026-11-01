@@ -1,0 +1,148 @@
+{
+  "columns": {
+    "name": "Nom",
+    "status": "État",
+    "percentDone": "Progression",
+    "totalSize": "Taille",
+    "rateDownload": "Réception",
+    "rateUpload": "Envoi",
+    "eta": "Restant",
+    "uploadRatio": "Ratio",
+    "seederCount": "Sources",
+    "leecherCount": "Téléchargeurs",
+    "uploadedEver": "Envoyé",
+    "addedDate": "Ajouté le",
+    "doneDate": "Terminé le",
+    "activityDate": "Dernière activité",
+    "queuePosition": "File",
+    "downloadDir": "Emplacement",
+    "labels": "Étiquettes",
+    "trackers": "Trackers",
+    "id": "ID"
+  },
+  "table": {
+    "selectAll": "Sélectionner tous les torrents de la liste",
+    "selectRow": "Sélectionner {name}",
+    "sortAscending": "Trier par {column}, ordre croissant",
+    "sortDescending": "Trier par {column}, ordre décroissant",
+    "trackerWarning": "Avertissement du tracker",
+    "noTorrents": "Aucun torrent pour le moment. Ajoutez-en un avec le bouton ci-dessus ou déposez un fichier n’importe où.",
+    "noMatches": "Aucun torrent ne correspond au filtre actuel."
+  },
+  "actions": {
+    "menu": "Filtres",
+    "add": "Ajouter un torrent",
+    "start": "Démarrer",
+    "pause": "Mettre en pause",
+    "verify": "Vérifier les données locales",
+    "reannounce": "Demander plus de pairs au tracker",
+    "forceStart": "Forcer le démarrage",
+    "remove": "Retirer",
+    "move": "Définir l’emplacement",
+    "limits": "Limites de vitesse",
+    "labels": "Étiquettes",
+    "queue": "File d’attente",
+    "queueTop": "Placer en tête",
+    "queueUp": "Monter",
+    "queueDown": "Descendre",
+    "queueBottom": "Placer en queue",
+    "settings": "Paramètres",
+    "about": "À propos",
+    "replaceTrackers": "Remplacer les trackers",
+    "findData": "Rechercher les données",
+    "rename": "Renommer"
+  },
+  "search": {
+    "placeholder": "Rechercher des torrents",
+    "clear": "Effacer la recherche",
+    "open": "Rechercher"
+  },
+  "toolbar": {
+    "transferGroup": "Transfert",
+    "manageGroup": "Gestion",
+    "rates": "Réception {down}, envoi {up}",
+    "altSpeed": "Limites de vitesse temporaires",
+    "collapse": "Réduire la barre latérale",
+    "expand": "Développer la barre latérale"
+  },
+  "sidebar": {
+    "status": "État",
+    "labels": "Étiquettes",
+    "trackers": "Trackers",
+    "folders": "Dossiers",
+    "all": "Tous",
+    "active": "Actifs",
+    "stopped": "En pause",
+    "warning": "Avertissement",
+    "noLabels": "Aucune étiquette",
+    "noTrackers": "Aucun tracker",
+    "noFolders": "Aucun dossier"
+  },
+  "statusbar": {
+    "down": "Débit de réception",
+    "up": "Débit d’envoi",
+    "limit": "{rate} sur {limit}",
+    "altSpeed": "Limites de vitesse temporaires",
+    "altSpeedOn": "Limites actives",
+    "free": "Espace libre dans le dossier de téléchargement",
+    "freeValue": "{free} libres",
+    "freeChecking": "Vérification de l’espace libre",
+    "port": "Port d’écoute des pairs",
+    "portLine": "Port {port} : {states}",
+    "portProtocol": "{protocol} {state}",
+    "portStateOpen": "ouvert",
+    "portStateClosed": "fermé",
+    "portStateUnknown": "inconnu",
+    "portStateUnavailable": "indisponible",
+    "portStateChecking": "vérification",
+    "version": "Transmission {version}",
+    "versionTip": "Versions de Transmission et de RPC",
+    "countsOf": "{shown} sur {total}",
+    "rpc": "RPC {rpc}",
+    "rpcSemver": "RPC semver {semver}"
+  },
+  "bulkbar": {
+    "clear": "Annuler la sélection"
+  },
+  "feedback": {
+    "actionFailed": "Échec de « {action} » : {message}",
+    "done": {
+      "start": {
+        "one": "{total} torrent démarré",
+        "other": "{total} torrents démarrés"
+      },
+      "pause": {
+        "one": "{total} torrent mis en pause",
+        "other": "{total} torrents mis en pause"
+      },
+      "verify": {
+        "one": "Vérification de {total} torrent",
+        "other": "Vérification de {total} torrents"
+      },
+      "reannounce": {
+        "one": "Trackers interrogés pour {total} torrent",
+        "other": "Trackers interrogés pour {total} torrents"
+      },
+      "forceStart": {
+        "one": "Démarrage forcé de {total} torrent",
+        "other": "Démarrage forcé de {total} torrents"
+      },
+      "queueTop": {
+        "one": "{total} torrent placé en tête de la file",
+        "other": "{total} torrents placés en tête de la file"
+      },
+      "queueUp": {
+        "one": "{total} torrent monté dans la file",
+        "other": "{total} torrents montés dans la file"
+      },
+      "queueDown": {
+        "one": "{total} torrent descendu dans la file",
+        "other": "{total} torrents descendus dans la file"
+      },
+      "queueBottom": {
+        "one": "{total} torrent placé en queue de file",
+        "other": "{total} torrents placés en queue de file"
+      }
+    }
+  }
+}

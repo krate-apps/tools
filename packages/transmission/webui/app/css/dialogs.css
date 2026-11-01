@@ -1,0 +1,519 @@
+/*
+ * Dialog content: the shared form rows (also used by the Options tab), Add
+ * torrent (drop card, file chips, links, directory, labels), Remove, and the
+ * window drop overlay.
+ */
+
+.field-help {
+	font-size: 12px;
+	color: var(--kr-fg-muted);
+}
+
+.option-row {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-between;
+	gap: 6px 16px;
+	min-height: 40px;
+}
+
+/* A long label (or a long translation) wraps, and when the control no longer
+ * fits beside it the control moves under the label instead of overflowing. */
+.option-label {
+	flex: 1 1 12rem;
+	min-width: 0;
+	font-size: 14px;
+	color: var(--kr-foreground);
+}
+
+.option-field {
+	display: inline-flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 8px;
+	flex: 0 1 auto;
+	max-width: 100%;
+}
+
+.option-number {
+	width: 104px;
+	text-align: right;
+}
+
+.option-number:disabled,
+.option-select:disabled {
+	opacity: 0.5;
+}
+
+.option-unit {
+	min-width: 40px;
+	font-size: 12px;
+	color: var(--kr-fg-muted);
+}
+
+.option-select {
+	width: auto;
+	min-width: min(200px, 100%);
+	max-width: 100%;
+	flex: 0 1 auto;
+}
+
+.checkbox {
+	width: 16px;
+	height: 16px;
+	margin: 0;
+	flex: none;
+}
+
+.check-row {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	min-height: 36px;
+	cursor: pointer;
+}
+
+/* ---- Add torrent ------------------------------------------------------ */
+
+.add-form {
+	display: grid;
+	gap: 16px;
+}
+
+/* The alert stays mounted so screen readers hear it, but takes no row
+   (or gap) above the footer until it has something to say. */
+.add-form > .field-error:empty {
+	min-height: 0;
+	margin-top: -16px;
+}
+
+.drop-card {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: center;
+	gap: 12px;
+	padding: 20px 16px;
+	border: 1.5px dashed var(--kr-border);
+	border-radius: var(--kr-radius-lg);
+	text-align: center;
+	color: var(--kr-fg-muted);
+	background: color-mix(in srgb, var(--kr-muted) 40%, transparent);
+}
+
+.drop-card-icon {
+	color: var(--kr-icon);
+}
+
+.file-chips {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 6px;
+	margin: -8px 0 0;
+	padding: 0;
+	list-style: none;
+}
+
+.file-chips[hidden] {
+	display: none;
+}
+
+.file-chip {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	max-width: 100%;
+	height: 28px;
+	padding: 0 2px 0 8px;
+	border: 1px solid var(--kr-border);
+	border-radius: 999px;
+	font-size: 12px;
+	background: var(--kr-surface-2);
+}
+
+.file-chip-icon {
+	display: inline-flex;
+	color: var(--kr-icon);
+}
+
+.file-chip-name {
+	min-width: 0;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+/* ---- Remove ----------------------------------------------------------- */
+
+.remove-names {
+	display: grid;
+	gap: 4px;
+	margin: 0 0 12px;
+	padding: 0;
+	list-style: none;
+}
+
+.remove-name {
+	overflow-wrap: anywhere;
+	font-weight: 500;
+}
+
+.remove-more {
+	color: var(--kr-fg-muted);
+}
+
+.remove-warning {
+	margin-top: 4px;
+	font-size: 13px;
+	color: var(--kr-destructive-text);
+}
+
+.remove-warning[hidden] {
+	display: none;
+}
+
+/* ---- Window drop overlay ---------------------------------------------- */
+
+.drop-overlay {
+	position: fixed;
+	inset: 0;
+	z-index: 970;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 24px;
+	background: color-mix(in srgb, var(--kr-overlay) 55%, transparent);
+	pointer-events: none;
+}
+
+.drop-overlay[hidden] {
+	display: none;
+}
+
+.drop-overlay-card {
+	display: grid;
+	justify-items: center;
+	gap: 8px;
+	width: min(420px, 100%);
+	padding: 32px 24px;
+	border: 2px dashed var(--kr-primary);
+	border-radius: var(--kr-radius-xl);
+	color: var(--kr-primary-text);
+	background: var(--kr-surface);
+	box-shadow: var(--kr-shadow);
+	text-align: center;
+}
+
+.drop-overlay-title {
+	font-size: 16px;
+	font-weight: 600;
+	color: var(--kr-foreground);
+}
+
+.drop-overlay-hint {
+	font-size: 13px;
+	color: var(--kr-fg-muted);
+}
+
+/* ---- Location, Labels, Limits ----------------------------------------- */
+
+.choice-group {
+	display: grid;
+	gap: 2px;
+	margin: 4px 0 0;
+	padding: 0;
+	border: 0;
+}
+
+.choice-group legend {
+	padding: 0;
+}
+
+.label-boxes {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(min(100%, 180px), 1fr));
+	gap: 0 12px;
+	max-height: 240px;
+	margin: 0 0 8px;
+	padding: 0;
+	overflow: auto;
+	list-style: none;
+}
+
+.label-boxes[hidden] {
+	display: none;
+}
+
+.label-name {
+	min-width: 0;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.label-import {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 8px 12px;
+	margin-bottom: 8px;
+	padding: 10px 12px;
+	border: 1px solid color-mix(in srgb, var(--kr-primary) 35%, transparent);
+	border-radius: var(--kr-radius);
+	background: color-mix(in srgb, var(--kr-primary) 8%, transparent);
+}
+
+.label-import p {
+	flex: 1 1 240px;
+	font-size: 13px;
+}
+
+.limits-form {
+	display: grid;
+	gap: 12px;
+}
+
+/* ---- About ------------------------------------------------------------ */
+
+.about {
+	display: grid;
+	gap: 16px;
+}
+
+.about-brand {
+	display: flex;
+	align-items: center;
+	gap: 14px;
+}
+
+.about-mark {
+	flex: none;
+	width: 56px;
+	height: 48px;
+	color: var(--kr-primary);
+}
+
+.about-name {
+	font-size: 16px;
+	font-weight: 600;
+}
+
+.about-version {
+	font-size: 13px;
+	color: var(--kr-fg-muted);
+}
+
+.about-facts {
+	grid-template-columns: repeat(auto-fill, minmax(min(100%, 180px), 1fr));
+}
+
+.about-credit {
+	font-size: 13px;
+	color: var(--kr-fg-muted);
+}
+
+.about-original {
+	justify-self: start;
+	font-size: 14px;
+}
+
+/* ---- Settings --------------------------------------------------------- */
+
+.settings {
+	display: grid;
+	grid-template-columns: 180px minmax(0, 1fr);
+	grid-template-rows: auto auto auto;
+	gap: 0 20px;
+	min-height: 360px;
+}
+
+.settings-nav {
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+	grid-row: 1 / span 3;
+	align-self: start;
+	position: sticky;
+	top: 0;
+}
+
+.settings-tab {
+	display: flex;
+	align-items: center;
+	min-height: 34px;
+	padding: 0 10px;
+	border: 0;
+	border-radius: var(--kr-radius);
+	font-size: 14px;
+	text-align: left;
+	color: var(--kr-fg-muted);
+	background: transparent;
+	cursor: pointer;
+}
+
+.settings-tab:hover {
+	color: var(--kr-foreground);
+	background: var(--kr-muted);
+}
+
+.settings-tab[aria-selected="true"] {
+	font-weight: 500;
+	color: var(--kr-primary-text);
+	background: color-mix(in srgb, var(--kr-primary) 12%, transparent);
+}
+
+.settings-panel:focus-visible {
+	outline-offset: 4px;
+}
+
+.settings-page[hidden] {
+	display: none;
+}
+
+.settings-page {
+	display: grid;
+	gap: 2px;
+}
+
+.settings-page-title {
+	margin: 0 0 6px;
+	font-size: 15px;
+	font-weight: 600;
+}
+
+.settings-field {
+	display: grid;
+	gap: 2px;
+}
+
+.option-row-stack {
+	flex-direction: column;
+	align-items: stretch;
+	gap: 6px;
+	padding: 6px 0;
+}
+
+/* In a stacked row the main axis is vertical, so the label's flex-basis
+ * would become its height. */
+.option-row-stack > .option-label {
+	flex: none;
+}
+
+.settings-text {
+	width: 100%;
+}
+
+.settings-help {
+	margin: -2px 0 6px;
+}
+
+.settings-readonly {
+	color: var(--kr-fg-muted);
+}
+
+.day-boxes {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 4px 12px;
+}
+
+.day-box {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	font-size: 13px;
+}
+
+.port-chips {
+	display: inline-flex;
+	flex-wrap: wrap;
+	gap: 6px;
+}
+
+.port-chip.is-open {
+	color: var(--tr-st-seeding);
+	border-color: color-mix(in srgb, var(--tr-st-seeding) 35%, transparent);
+}
+
+.port-chip.is-closed {
+	color: var(--kr-destructive-text);
+	border-color: color-mix(in srgb, var(--kr-destructive) 40%, transparent);
+}
+
+.settings-interface {
+	display: grid;
+	gap: 2px;
+}
+
+@media (max-width: 639px) {
+	.settings {
+		grid-template-columns: minmax(0, 1fr);
+	}
+
+	.settings-nav {
+		position: static;
+		flex-direction: row;
+		grid-row: auto;
+		overflow-x: auto;
+		margin: 0 -3px 12px;
+		padding: 3px;
+		scrollbar-width: none;
+	}
+
+	.settings-tab {
+		flex: none;
+	}
+}
+
+/* ---- Find data -------------------------------------------------------- */
+
+.match-results {
+	display: grid;
+	gap: 4px;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.match-result {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	gap: 4px 12px;
+	font-size: 13px;
+}
+
+.match-name {
+	min-width: 0;
+	overflow-wrap: anywhere;
+	font-weight: 500;
+}
+
+.match-folder {
+	overflow-wrap: anywhere;
+	color: var(--kr-fg-muted);
+}
+
+.match-result.is-found .match-folder {
+	color: var(--tr-st-seeding);
+}
+
+.settings-subtitle {
+	margin: 14px 0 2px;
+	font-size: 13px;
+	font-weight: 600;
+}
+
+.column-boxes {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(min(100%, 150px), 1fr));
+	gap: 0 12px;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.port-chips:empty {
+	display: none;
+}

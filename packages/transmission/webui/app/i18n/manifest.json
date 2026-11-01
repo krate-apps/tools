@@ -1,0 +1,19 @@
+{
+  "en": ["core", "details", "main", "dialogs"],
+  "da": ["core", "details", "main", "dialogs"],
+  "de": ["core", "details", "main", "dialogs"],
+  "es": ["core", "details", "main", "dialogs"],
+  "fr": ["core", "details", "main", "dialogs"],
+  "pt-BR": ["core", "details", "main", "dialogs"],
+  "zh-CN": ["core", "details", "main", "dialogs"],
+  "hu": ["core", "details", "main", "dialogs"],
+  "zh-TW": ["core", "details", "main", "dialogs"],
+  "nl": ["core", "details", "main", "dialogs"],
+  "ru": ["core", "details", "main", "dialogs"],
+  "uk": ["core", "details", "main", "dialogs"],
+  "ko": ["core", "details", "main", "dialogs"],
+  "it": ["core", "details", "main", "dialogs"],
+  "ro": ["core", "details", "main", "dialogs"],
+  "pl": ["core", "details", "main", "dialogs"],
+  "pt-PT": ["core", "details", "main", "dialogs"]
+}

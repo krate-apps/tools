@@ -1,0 +1,148 @@
+{
+  "columns": {
+    "name": "Name",
+    "status": "Status",
+    "percentDone": "Progress",
+    "totalSize": "Size",
+    "rateDownload": "Down",
+    "rateUpload": "Up",
+    "eta": "ETA",
+    "uploadRatio": "Ratio",
+    "seederCount": "Seeders",
+    "leecherCount": "Leechers",
+    "uploadedEver": "Uploaded",
+    "addedDate": "Added",
+    "doneDate": "Completed",
+    "activityDate": "Last active",
+    "queuePosition": "Queue",
+    "downloadDir": "Location",
+    "labels": "Labels",
+    "trackers": "Trackers",
+    "id": "ID"
+  },
+  "table": {
+    "selectAll": "Select all torrents in the list",
+    "selectRow": "Select {name}",
+    "sortAscending": "Sort by {column}, ascending",
+    "sortDescending": "Sort by {column}, descending",
+    "trackerWarning": "Tracker warning",
+    "noTorrents": "No torrents yet. Add one with the button above or drop a file anywhere.",
+    "noMatches": "No torrents match the current filter."
+  },
+  "actions": {
+    "menu": "Filters",
+    "add": "Add torrent",
+    "start": "Start",
+    "pause": "Pause",
+    "verify": "Verify local data",
+    "reannounce": "Ask tracker for more peers",
+    "forceStart": "Force start",
+    "remove": "Remove",
+    "move": "Set location",
+    "limits": "Speed limits",
+    "labels": "Labels",
+    "queue": "Queue",
+    "queueTop": "Move to top",
+    "queueUp": "Move up",
+    "queueDown": "Move down",
+    "queueBottom": "Move to bottom",
+    "settings": "Settings",
+    "about": "About",
+    "replaceTrackers": "Replace trackers",
+    "findData": "Find data",
+    "rename": "Rename"
+  },
+  "search": {
+    "placeholder": "Search torrents",
+    "clear": "Clear search",
+    "open": "Search"
+  },
+  "toolbar": {
+    "transferGroup": "Transfer",
+    "manageGroup": "Manage",
+    "rates": "Download {down}, upload {up}",
+    "altSpeed": "Temporary speed limits",
+    "collapse": "Collapse sidebar",
+    "expand": "Expand sidebar"
+  },
+  "sidebar": {
+    "status": "Status",
+    "labels": "Labels",
+    "trackers": "Trackers",
+    "folders": "Folders",
+    "all": "All",
+    "active": "Active",
+    "stopped": "Paused",
+    "warning": "Warning",
+    "noLabels": "No labels yet",
+    "noTrackers": "No trackers",
+    "noFolders": "No folders"
+  },
+  "statusbar": {
+    "down": "Download rate",
+    "up": "Upload rate",
+    "limit": "{rate} of {limit}",
+    "altSpeed": "Temporary speed limits",
+    "altSpeedOn": "Limits on",
+    "free": "Free space in the download folder",
+    "freeValue": "{free} free",
+    "freeChecking": "Checking free space",
+    "port": "Peer port",
+    "portLine": "Port {port}: {states}",
+    "portProtocol": "{protocol} {state}",
+    "portStateOpen": "open",
+    "portStateClosed": "closed",
+    "portStateUnknown": "unknown",
+    "portStateUnavailable": "unavailable",
+    "portStateChecking": "checking",
+    "version": "Transmission {version}",
+    "versionTip": "Transmission and RPC versions",
+    "countsOf": "{shown} of {total}",
+    "rpc": "RPC {rpc}",
+    "rpcSemver": "RPC semver {semver}"
+  },
+  "bulkbar": {
+    "clear": "Clear selection"
+  },
+  "feedback": {
+    "actionFailed": "{action} failed: {message}",
+    "done": {
+      "start": {
+        "one": "Started {total} torrent",
+        "other": "Started {total} torrents"
+      },
+      "pause": {
+        "one": "Paused {total} torrent",
+        "other": "Paused {total} torrents"
+      },
+      "verify": {
+        "one": "Verifying {total} torrent",
+        "other": "Verifying {total} torrents"
+      },
+      "reannounce": {
+        "one": "Asked the trackers about {total} torrent",
+        "other": "Asked the trackers about {total} torrents"
+      },
+      "forceStart": {
+        "one": "Force started {total} torrent",
+        "other": "Force started {total} torrents"
+      },
+      "queueTop": {
+        "one": "Moved {total} torrent to the top of the queue",
+        "other": "Moved {total} torrents to the top of the queue"
+      },
+      "queueUp": {
+        "one": "Moved {total} torrent up the queue",
+        "other": "Moved {total} torrents up the queue"
+      },
+      "queueDown": {
+        "one": "Moved {total} torrent down the queue",
+        "other": "Moved {total} torrents down the queue"
+      },
+      "queueBottom": {
+        "one": "Moved {total} torrent to the bottom of the queue",
+        "other": "Moved {total} torrents to the bottom of the queue"
+      }
+    }
+  }
+}

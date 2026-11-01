@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" data-kr-variant="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script>
+(function(){
+  var V=["dark","light"], v=null,m,raw="";
+  try{v=localStorage.getItem("kr-transmission-variant")}catch(e){}
+  if(V.indexOf(v)<0){
+    m=document.cookie.match(/(?:^|;\s*)krate_theme=([^;]*)/);
+    try{raw=m?decodeURIComponent(m[1]):""}catch(e){raw=""}
+    v=String(raw).toLowerCase();
+  }
+  if(V.indexOf(v)<0){
+    try{v=matchMedia("(prefers-color-scheme: light)").matches?"light":"dark"}catch(e){v="dark"}
+  }
+  document.documentElement.setAttribute("data-kr-variant",v);
+  document.documentElement.classList.toggle("dark",v==="dark");
+  document.documentElement.setAttribute("data-theme",v);
+})();
+</script>
+<link rel="stylesheet" href="app/css/tokens.css?v=2.0.0">
+<link rel="stylesheet" href="app/css/base.css?v=2.0.0">
+<link rel="stylesheet" href="app/css/shell.css?v=2.0.0">
+<link rel="stylesheet" href="app/css/details.css?v=2.0.0">
+<link rel="stylesheet" href="app/css/dialogs.css?v=2.0.0">
+<link rel="stylesheet" href="app/css/table.css?v=2.0.0">
+<link rel="stylesheet" href="app/css/chrome.css?v=2.0.0">
+<link rel="icon" href="images/favicon.ico">
+<title>Transmission</title>
+<script type="module" src="app/js/main.js?v=2.0.0"></script>
+</head>
+<body>
+<div id="app" class="shell">
+<header class="shell-toolbar" data-region="toolbar"></header>
+<nav class="shell-sidebar" data-region="sidebar"></nav>
+<div class="shell-scrim" data-shell-scrim></div>
+<main class="shell-main">
+<section class="shell-table" data-region="table"></section>
+<section class="shell-details" data-region="details"></section>
+</main>
+<footer class="shell-statusbar" data-region="statusbar"></footer>
+<div class="shell-bulkbar" data-region="bulkbar"></div>
+<div class="shell-dialogs" data-region="dialogs"></div>
+</div>
+</body>
+</html>
