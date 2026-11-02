@@ -32,11 +32,11 @@ FULL_VERSION="${TRANSMISSION_VERSION}-${BUILD}"
 CREATE_DEB="true"
 
 case "$TRANSMISSION_VERSION" in
-    4.0.6 | 4.1.0 | 4.1.1 | 4.1.3)
+    4.0.6 | 4.1.0 | 4.1.1 | 4.1.3 | 4.1.4)
         TAG="$TRANSMISSION_VERSION"
         ;;
     *)
-        echo "ERROR: Unsupported version '$TRANSMISSION_VERSION'. Use 4.0.6, 4.1.0, 4.1.1, or 4.1.3."
+        echo "ERROR: Unsupported version '$TRANSMISSION_VERSION'. Use 4.0.6, 4.1.0, 4.1.1, 4.1.3, or 4.1.4."
         exit 1
         ;;
 esac
