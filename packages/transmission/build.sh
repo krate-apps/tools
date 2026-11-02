@@ -119,6 +119,10 @@ install_krate_webui() {
         echo "ERROR: Krate WebUI missing at $WEBUI_SRC/index.html"
         exit 1
     fi
+    if [ ! -f "$WEBUI_SRC/KRATE-ORIGIN.txt" ]; then
+        echo "ERROR: Krate WebUI origin file missing at $WEBUI_SRC/KRATE-ORIGIN.txt"
+        exit 1
+    fi
     PREFIX_ROOT="$INSTALL_DIR$PREFIX"
     WEB_ROOT=""
     # Prefer the directory that already contains index.html after cmake install
@@ -161,8 +165,12 @@ install_krate_webui() {
       "$WEB_ROOT/LICENSE" \
       "$WEB_ROOT/app/NOTICE"
     mkdir -p "$PREFIX_ROOT/share/doc/transmission-daemon"
-    cp -a "$WEBUI_SRC/LICENSE" "$PREFIX_ROOT/share/doc/transmission-daemon/webui-LICENSE"
-    cp -a "$WEBUI_SRC/KRATE-ORIGIN.txt" "$PREFIX_ROOT/share/doc/transmission-daemon/webui-ORIGIN.txt"
+    if [ -f "$WEBUI_SRC/KRATE-ORIGIN.txt" ]; then
+        cp -a "$WEBUI_SRC/KRATE-ORIGIN.txt" "$PREFIX_ROOT/share/doc/transmission-daemon/webui-ORIGIN.txt"
+    fi
+    if [ -f "$WEBUI_SRC/app/NOTICE" ]; then
+        cp -a "$WEBUI_SRC/app/NOTICE" "$PREFIX_ROOT/share/doc/transmission-daemon/webui-NOTICE"
+    fi
     echo "====> Installed Krate TWC WebUI into $WEB_ROOT"
 }
 
